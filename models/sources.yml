@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: adventure_works
+    schema: adventure_works
+    description: Fonte de dados criada através do Stitch
+    tables:
+      - name: address
+      - name: addresstype
+      - name: businessentity
+      - name: businessentityaddress
+      - name: businessentitycontact
+      - name: contacttype
+      - name: countryregion
+      - name: emailaddress
+      - name: password
+      - name: person
+      - name: personphone
+      - name: phonenumbertype
+      - name: stateprovince
+      - name: customer
+      - name: salesterritory
+      - name: product
+      - name: billofmaterials
+      - name: productmodel
+      - name: productmodelproductdescriptionculture
+      - name: productdescription
+      - name: productsubcategory
+      - name: productcategory
