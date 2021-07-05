@@ -27,3 +27,4 @@ sources:
       - name: productdescription
       - name: productsubcategory
       - name: productcategory
+      - name: salesreason

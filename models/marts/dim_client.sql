@@ -4,10 +4,10 @@ with staging as (
     where persontype in ('SC', 'IN')
 ),
 
- final as (
+final as (
     select *,
         {{dbt_utils.surrogate_key(['businessentityid'])}} as client_sk -- chave surrogate hasheada
     from staging
- )
+)
 
 select * from final
