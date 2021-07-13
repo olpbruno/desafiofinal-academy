@@ -1,7 +1,7 @@
 with staging as (
     select * 
     from {{ ref('stg_person')}}
-    where persontype = 'SP'
+    where tipo_pessoa = 'SP'
 ),
 
  final as (

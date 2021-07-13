@@ -1,12 +1,12 @@
 with staging as (
     select * 
     from {{ ref('stg_person')}}
-    where persontype in ('SC', 'IN')
+    where tipo_pessoa in ('SC', 'IN')
 ),
 
 final as (
     select *,
-        {{dbt_utils.surrogate_key(['businessentityid'])}} as client_sk -- chave surrogate hasheada
+        {{dbt_utils.surrogate_key(['id_pessoa'])}} as client_sk -- chave surrogate hasheada
     from staging
 )
 

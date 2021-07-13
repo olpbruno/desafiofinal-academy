@@ -54,12 +54,12 @@ final as (
         , source_productmodel.model as modelo
         , source_productdescription.description as descricao
         , case 
-            when source_product.makeflag is '0'
+            when source_product.makeflag is true
                 then 'Sim' 
                 else 'Não'
             end as produto_comprado
         , case
-            when source_product.finishedgoodsflag is '0'
+            when source_product.finishedgoodsflag is true
                 then 'Sim'
                 else 'Não'
             end as venda_disponivel

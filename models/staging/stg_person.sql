@@ -91,22 +91,23 @@ source_person as (
 
 final as (
     select 
-        source_person.businessentityid as id_pessoa,
+        source_person.businessentityid as id_pessoa
         , source_person.clientname as nome
-        , source_person.store as loja
+        , source_store.store as loja
         , case 
-        ,     when store is null then 'Não' 
-        ,     else 'Sim' 
-        , end as is_resseler
-        , source_creditcard.creditcardid as  id_cartao
+            when source_store.store is null 
+                then 'Não' 
+                else 'Sim' 
+            end as revendedor
+        , source_creditcard.creditcardid as id_cartao
         , source_creditcard.cardtype as tipo_cartao
         , source_creditcard.cardnumber as numero_cartao
         , source_creditcard.expdate as validade_cartao /* data de validade do cartão */ 
         , source_person.persontype as tipo_pessoa
         , case
-            when emailpromotion is '0' 
-                then 'Não' 
-                else 'Sim'
+            when emailpromotion = 1
+                then 'Sim' 
+                else 'Não'
             end as recebe_promo
         , source_territory.grupo as regiao_geografica
         , source_territory.territory_name as territorio

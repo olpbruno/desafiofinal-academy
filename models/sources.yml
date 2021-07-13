@@ -36,5 +36,4 @@ sources:
       - name: specialoffer
       - name: creditcard
       - name: personcreditcard
-      - name: salesorderdetails
       - name: salesorderheadersalesreason
