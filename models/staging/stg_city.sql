@@ -1,8 +1,8 @@
 with source_data as (
     select 
-        addressid,
-        city,
-        stateprovinceid
+        addressid as id_endereço,
+        city as cidade,
+        stateprovinceid as id_estado
     from {{ source('adventure_works','address') }}
 )
 

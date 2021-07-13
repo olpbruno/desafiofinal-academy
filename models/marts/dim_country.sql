@@ -5,7 +5,7 @@ with staging as (
 
 final as (
     select *,
-        {{dbt_utils.surrogate_key(['countryregioncodeid'])}} as country_sk -- chave surrogate hasheada
+        {{dbt_utils.surrogate_key(['sigla_pais'])}} as country_sk -- chave surrogate hasheada
     from staging
 )
 

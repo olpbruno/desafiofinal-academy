@@ -46,30 +46,36 @@ source_productcategory as (
 
 final as (
     select
-        productid,
-        productnumber,
-        name,
-        category,
-        subcategory,
-        model,
-        description,
-        makeflag,
-        finishedgoodsflag,
-        color,
-        safetystocklevel,
-        reorderpoint,
-        standardcost,
-        listprice,
-        size,
-        sizeunitmeasurecode,
-        weightunitmeasurecode,
-        weight,
-        daystomanufacture,
-        productline,
-        class,
-        style,
-        sellstartdate,
-        sellenddate,
+        source_product.productid as id_produto
+        , source_product.productnumber as numero_produto
+        , source_product.name as produto
+        , source_productcategory.category as categoria
+        , source_productsubcategory.subcategory as subcategoria
+        , source_productmodel.model as modelo
+        , source_productdescription.description as descricao
+        , case 
+            when source_product.makeflag is '0'
+                then 'Sim' 
+                else 'Não'
+            end as produto_comprado
+        , case
+            when source_product.finishedgoodsflag is '0'
+                then 'Sim'
+                else 'Não'
+            end as venda_disponivel
+        , source_product.color as cor
+        , source_product.safetystocklevel as estoque_minimo
+        , source_product.reorderpoint as estoque_pedido /* estoque minimo que aciona um pedido de compra ou produção */
+        , source_product.standardcost as preco_padrao
+        , source_product.listprice as valor_venda
+        , source_product.size as tamanho_produto
+        , source_product.sizeunitmeasurecode as medida_tamanho
+        , source_product.weight as peso
+        , source_product.weightunitmeasurecode as medida_peso
+        , source_product.daystomanufacture as tempo_producao
+        , source_product.productline as linha_produto
+        , source_product.class as classe_produto
+        , source_product.style as estilo
         from source_product
         left join source_billofmaterials on source_product.productid = source_billofmaterials.productassemblyid 
         left join source_productsubcategory on source_product.productsubcategoryid = source_productsubcategory.productsubcategoryid

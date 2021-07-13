@@ -91,28 +91,28 @@ source_person as (
 
 final as (
     select 
-        source_person.businessentityid,
-        clientname as name,
-        store,
-        case 
-            when store is null then 'Não' 
-            else 'Sim' 
-        end as is_resseler,
-        source_creditcard.creditcardid,
-        cardtype,
-        cardnumber,
-        expdate,  /* data de validade do cartão */ 
-        persontype,		
-        suffix,	
-        modifieddate,
-        rowguid,	
-        emailpromotion,	
-        title,        
-        grupo,	
-        territory_name,
-        country_region,
-        state_province,
-        city
+        source_person.businessentityid as id_pessoa,
+        , source_person.clientname as nome
+        , source_person.store as loja
+        , case 
+        ,     when store is null then 'Não' 
+        ,     else 'Sim' 
+        , end as is_resseler
+        , source_creditcard.creditcardid as  id_cartao
+        , source_creditcard.cardtype as tipo_cartao
+        , source_creditcard.cardnumber as numero_cartao
+        , source_creditcard.expdate as validade_cartao /* data de validade do cartão */ 
+        , source_person.persontype as tipo_pessoa
+        , case
+            when emailpromotion is '0' 
+                then 'Não' 
+                else 'Sim'
+            end as recebe_promo
+        , source_territory.grupo as regiao_geografica
+        , source_territory.territory_name as territorio
+        , source_countryregion.country_region as pais
+        , source_stateprovince.state_province as estado
+        , source_address.city as cidade
         from source_person
         left join source_customer on source_person.businessentityid = source_customer.personid
         left join source_businessentityaddress on source_person.businessentityid = source_businessentityaddress.businessentityid

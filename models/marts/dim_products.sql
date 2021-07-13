@@ -5,7 +5,7 @@ with staging as (
 
  final as (
     select *,
-        {{dbt_utils.surrogate_key(['productid'])}} as product_sk -- chave surrogate hasheada
+        {{dbt_utils.surrogate_key(['id_produto'])}} as product_sk -- chave surrogate hasheada
     from staging
  )
 

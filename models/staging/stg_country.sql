@@ -1,8 +1,7 @@
 with source_data as (
     select 
-        row_number() over (order by countryregioncode) as countryregioncodeid,
-        countryregioncode,
-        name
+        countryregioncode as sigla_pais,
+        name as pais
     from {{ source('adventure_works','countryregion') }}
 )
 

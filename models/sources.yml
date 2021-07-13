@@ -29,4 +29,12 @@ sources:
       - name: productcategory
       - name: salesreason
       - name: workorder
-      - name: 
+      - name: salesorderheader
+      - name: salesorderdetail
+      - name: store
+      - name: specialofferproduct
+      - name: specialoffer
+      - name: creditcard
+      - name: personcreditcard
+      - name: salesorderdetails
+      - name: salesorderheadersalesreason
