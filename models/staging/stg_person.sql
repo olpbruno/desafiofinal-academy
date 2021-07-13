@@ -1,9 +1,35 @@
+{{ config(materialized='table') }}
+
 with source_customer as (
     select 
         personid,						
         storeid,		
         customerid	
     from {{ source('adventure_works','customer') }}
+),
+
+source_store as (
+    select 
+        name as store,
+        salespersonid,
+        businessentityid
+    from {{ source('adventure_works','store') }}
+),
+
+source_personcreditcard as (
+    select 
+        creditcardid,
+        businessentityid
+    from {{ source('adventure_works','personcreditcard') }}
+),
+
+source_creditcard as (
+    select 
+        creditcardid,
+        cardtype,
+        cardnumber,
+        concat(expyear,'-', expmonth) as expdate
+    from {{ source('adventure_works','creditcard') }}
 ),
 
 source_businessentityaddress as (
@@ -67,8 +93,16 @@ final as (
     select 
         source_person.businessentityid,
         clientname as name,
-        persontype,	
-        namestyle,	
+        store,
+        case 
+            when store is null then 'Não' 
+            else 'Sim' 
+        end as is_resseler,
+        source_creditcard.creditcardid,
+        cardtype,
+        cardnumber,
+        expdate,  /* data de validade do cartão */ 
+        persontype,		
         suffix,	
         modifieddate,
         rowguid,	
@@ -86,6 +120,9 @@ final as (
         left join source_stateprovince on source_address.stateprovinceid = source_stateprovince.stateprovinceid
         left join source_countryregion on source_stateprovince.countryregioncode = source_countryregion.countryregioncode
         left join source_territory on source_stateprovince.territoryid = source_territory.territoryid
+        left join source_store on source_customer.storeid = source_store.businessentityid
+        left join source_personcreditcard on source_person.businessentityid = source_personcreditcard.businessentityid 
+        left join source_creditcard on source_personcreditcard.creditcardid = source_creditcard.creditcardid
 )
 
 select *
