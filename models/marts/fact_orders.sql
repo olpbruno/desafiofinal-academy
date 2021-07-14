@@ -47,8 +47,7 @@ dates as (
 
 final as (
     select 
-        orders.*
-        , clients.client_sk
+        clients.client_sk
         , products.product_sk
         , salesreason.salesreason_sk
         , salesperson.vendedor_sk
@@ -56,6 +55,16 @@ final as (
         , states.state_sk
         , country.country_sk
         , dates.date_sk
+        , orders.codigo_compra
+        , orders.frete
+        , orders.impostos
+        , orders.pedido_online
+        , orders.situacao_pedido
+        , orders.data_envio
+        , orders.data_entrega
+        , orders.quantidade
+        , orders.preco_unidade
+        , orders.desconto_unitario
     from orders
     left join clients on orders.id_cliente = clients.id_pessoa
     left join products on orders.id_produto = products.id_produto

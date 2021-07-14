@@ -1,6 +1,7 @@
 with source_data as (
     select *
-    from {{ source('adventure_works','workorder') }}
+    from {{ source('adventure_works','location') }}
+)
 
 select * 
 from source_data

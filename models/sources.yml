@@ -29,6 +29,7 @@ sources:
       - name: productcategory
       - name: salesreason
       - name: workorder
+      - name: workorderrouting
       - name: salesorderheader
       - name: salesorderdetail
       - name: store
@@ -37,3 +38,4 @@ sources:
       - name: creditcard
       - name: personcreditcard
       - name: salesorderheadersalesreason
+      - name: location
