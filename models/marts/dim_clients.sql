@@ -10,4 +10,5 @@ final as (
     from staging
 )
 
-select * from final
+select *
+from final

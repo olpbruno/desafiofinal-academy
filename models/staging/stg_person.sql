@@ -90,6 +90,7 @@ source_person as (
 final as (
     select 
         source_person.businessentityid as id_pessoa
+        , source_person.rowguid
         , source_person.clientname as nome
         , source_store.store as loja
         , case 
@@ -122,7 +123,16 @@ final as (
         left join source_store on source_customer.storeid = source_store.businessentityid
         left join source_personcreditcard on source_person.businessentityid = source_personcreditcard.businessentityid 
         left join source_creditcard on source_personcreditcard.creditcardid = source_creditcard.creditcardid
-)
+),
+
+deduplicated as (
+        select
+            *, ROW_NUMBER() over (
+                partition by id_pessoa 
+                order by rowguid DESC NULLS LAST) as index
+        from final
+    )
 
 select *
-from final
+from deduplicated
+where index = 1

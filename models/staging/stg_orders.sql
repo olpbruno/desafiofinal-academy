@@ -31,7 +31,6 @@ with source_orderheader as (
         , taxamt as impostos
         , freight as frete
         , totaldue as valor_total
-        , {{dbt_utils.surrogate_key(['salesorderid'])}} as order_sk
     from {{ source('adventure_works','salesorderheader') }}
 ),
 
@@ -77,6 +76,7 @@ source_salesreason as (
 orders as (
     select 
         source_orderheader.*
+        , {{ dbt_utils.surrogate_key(['id_pedido', 'salesorderdetailid']) }} as order_sk
         , source_orderdetail.orderdetail_sk
         , source_orderdetail.orderqty as quantidade
         , source_orderdetail.unitprice as preco_unidade

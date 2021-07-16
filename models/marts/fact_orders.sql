@@ -55,6 +55,7 @@ final as (
         , states.state_sk
         , country.country_sk
         , dates.date_sk
+        , orders.order_sk
         , orders.codigo_compra
         , orders.frete
         , orders.impostos

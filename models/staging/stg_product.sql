@@ -76,8 +76,11 @@ final as (
         , source_product.productline as linha_produto
         , source_product.class as classe_produto
         , source_product.style as estilo
+        , source_productsubcategory.productsubcategoryid
+        , source_productcategory.productcategoryid
+        , source_productmodelproductdescriptionculture.productdescriptionid
+        , source_productdescription.productdescriptionid as sdsds
         from source_product
-        left join source_billofmaterials on source_product.productid = source_billofmaterials.productassemblyid 
         left join source_productsubcategory on source_product.productsubcategoryid = source_productsubcategory.productsubcategoryid
         left join source_productcategory on source_productsubcategory.productcategoryid = source_productcategory.productcategoryid
         left join source_productmodel on source_product.productmodelid = source_productmodel.productmodelid
