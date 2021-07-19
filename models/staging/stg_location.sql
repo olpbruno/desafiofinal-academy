@@ -1,7 +1,21 @@
 with source_data as (
-    select *
+    select 
+        costrate as taxa_custo
+        , locationid
+        , availability as capacidade
+        , modifieddate
+        , name as localizacao
     from {{ source('adventure_works','location') }}
-)
+),
 
-select * 
-from source_data
+deduplicated as (
+        select
+            *, ROW_NUMBER() over (
+                partition by locationid 
+                order by modifieddate DESC NULLS LAST) as index
+        from source_data
+    )
+
+select *
+from deduplicated
+where index = 1

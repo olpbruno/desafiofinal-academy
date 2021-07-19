@@ -16,7 +16,7 @@ products as (
 workorder as (
     select 
         workorderid
-        , startdate
+        , startdate 
         , scrapreasonid
         , scrappedqty
         , productid

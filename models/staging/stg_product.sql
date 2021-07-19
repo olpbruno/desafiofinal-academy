@@ -52,7 +52,11 @@ final as (
         , source_productcategory.category as categoria
         , source_productsubcategory.subcategory as subcategoria
         , source_productmodel.model as modelo
-        , source_productdescription.description as descricao
+        , case 
+            when source_productdescription.description is null
+                then 'Not informed'
+                else source_productdescription.description
+            end as descricao
         , case 
             when source_product.makeflag is true
                 then 'Sim' 
@@ -79,7 +83,6 @@ final as (
         , source_productsubcategory.productsubcategoryid
         , source_productcategory.productcategoryid
         , source_productmodelproductdescriptionculture.productdescriptionid
-        , source_productdescription.productdescriptionid as sdsds
         from source_product
         left join source_productsubcategory on source_product.productsubcategoryid = source_productsubcategory.productsubcategoryid
         left join source_productcategory on source_productsubcategory.productcategoryid = source_productcategory.productcategoryid

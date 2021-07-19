@@ -99,7 +99,11 @@ final as (
                 else 'Sim' 
             end as revendedor
         , source_creditcard.creditcardid as id_cartao
-        , source_creditcard.cardtype as tipo_cartao
+        , case
+            when source_creditcard.cardtype is null
+                then 'Not informed'
+                else source_creditcard.cardtype
+            end as tipo_cartao
         , source_creditcard.cardnumber as numero_cartao
         , source_creditcard.expdate as validade_cartao /* data de validade do cartão */ 
         , source_person.persontype as tipo_pessoa

@@ -1,7 +1,6 @@
 with staging as (
     select * 
     from {{ ref('stg_person')}}
-    where tipo_pessoa in ('SC', 'IN')
 ),
 
 final as (

@@ -56,9 +56,17 @@ final as (
         , country.country_sk
         , dates.date_sk
         , orders.order_sk
+        , case
+            when salesreason.motivo is null
+                then 'Not informed'
+                else salesreason.motivo
+            end as motivo
+        , case
+            when salesreason.tipo_motivo is null
+                then 'Not informed'
+                else salesreason.tipo_motivo
+            end as tipo_motivo
         , orders.codigo_compra
-        , orders.frete
-        , orders.impostos
         , orders.pedido_online
         , orders.situacao_pedido
         , orders.data_envio
@@ -66,6 +74,10 @@ final as (
         , orders.quantidade
         , orders.preco_unidade
         , orders.desconto_unitario
+        , orders.subtotal
+        , orders.frete
+        , orders.impostos
+        , orders.valor_total
     from orders
     left join clients on orders.id_cliente = clients.id_pessoa
     left join products on orders.id_produto = products.id_produto
