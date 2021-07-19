@@ -43,7 +43,7 @@ final as (
         {{ dbt_utils.surrogate_key(['workorder.workorderid']) }} as workorder_sk
         , workrouting.workrouting_sk
         , locations.location_sk
-        , products.product_sk
+        , products.sk_produto
         , dates.date_sk
         , workorder.orderqty as qnt_produzida
         , workorder.scrappedqty as qtd_sucateada

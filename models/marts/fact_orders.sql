@@ -48,7 +48,7 @@ dates as (
 final as (
     select 
         clients.client_sk
-        , products.product_sk
+        , products.sk_produto
         , salesreason.salesreason_sk
         , salesperson.vendedor_sk
         , city.city_sk
@@ -56,6 +56,7 @@ final as (
         , country.country_sk
         , dates.date_sk
         , orders.order_sk
+        , orders.id_pedido
         , case
             when salesreason.motivo is null
                 then 'Not informed'
@@ -79,7 +80,7 @@ final as (
         , orders.impostos
         , orders.valor_total
     from orders
-    left join clients on orders.id_cliente = clients.id_pessoa
+    left join clients on orders.id_pessoa = clients.id_pessoa
     left join products on orders.id_produto = products.id_produto
     left join salesperson on orders.id_vendedor = salesperson.id_pessoa
     left join salesreason on orders.id_razaovenda = salesreason.id_razaovenda

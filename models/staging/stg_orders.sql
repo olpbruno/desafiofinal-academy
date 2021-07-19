@@ -48,6 +48,14 @@ source_stateprovince as (
     from {{ source('adventure_works','stateprovince') }}
 ),
 
+source_customer as (
+    select 
+        personid,						
+        storeid,		
+        customerid	
+    from {{ source('adventure_works','customer') }}
+),
+
 source_orderdetail as (
     select 
         salesorderid
@@ -87,12 +95,14 @@ orders as (
         , source_address.addressid as id_endereco
         , source_address.stateprovinceid as id_estado
         , source_stateprovince.countryregioncode as sigla_pais
+        , source_customer.personid as id_pessoa
     from source_orderheader
     left join source_orderdetail on source_orderheader.id_pedido = source_orderdetail.salesorderid
     left join source_salesorderheadersalesreason on source_orderheader.id_pedido = source_salesorderheadersalesreason.salesorderid
     left join source_salesreason on source_salesorderheadersalesreason.salesreasonid = source_salesreason.salesreasonid
     left join source_address on source_orderheader.id_endereco_entrega = source_address.addressid
     left join source_stateprovince on source_address.stateprovinceid = source_stateprovince.stateprovinceid
+    left join source_customer on source_orderheader.id_cliente = source_customer.customerid
 )
 
 select * from orders

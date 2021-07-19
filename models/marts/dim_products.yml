@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: dim_products
+    description: Tabela de fatos de chamados (SAC) do banco Oracle. Referente à tabela usu_tsac_ca no banco source.
+    columns:
+      - name: 'sk_produto'
+        description: "Chave primária, surrogate, da dimensão de produtos. Composta por: id_produto."
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error
+      
+      - name: 'sk_subcategoria'
+        description: "Chave primária, surrogate, da dimensão de produtos. Composta por: id_categoria."
+        tests:
+          - not_null:
+              severity: error
+      
+      - name: 'sk_categoria'
+        description: "Chave primária, surrogate, da dimensão de produtos. Composta por: id_categoria."
+        tests:
+          - not_null:
+              severity: error
