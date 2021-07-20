@@ -1,4 +1,4 @@
-with orders as (
+/*with orders as (
     select *
     from {{ ref('stg_orders')}}
 ),
@@ -6,21 +6,6 @@ with orders as (
 clients as (
     select * 
     from {{ ref('dim_clients')}}
-),
-
-country as (
-    select * 
-    from {{ ref('dim_country')}}
-),
-
-states as (
-    select * 
-    from {{ ref('dim_states')}}
-),
-
-city as (
-    select * 
-    from {{ ref('dim_city')}}
 ),
 
 salesperson as (
@@ -51,9 +36,6 @@ final as (
         , products.sk_produto
         , salesreason.salesreason_sk
         , salesperson.vendedor_sk
-        , city.city_sk
-        , states.state_sk
-        , country.country_sk
         , dates.date_sk
         , orders.order_sk
         , orders.id_pedido
@@ -84,10 +66,7 @@ final as (
     left join products on orders.id_produto = products.id_produto
     left join salesperson on orders.id_vendedor = salesperson.id_pessoa
     left join salesreason on orders.id_razaovenda = salesreason.id_razaovenda
-    left join city on orders.id_endereco = city.id_endereco
-    left join states on orders.id_estado = states.id_estado
-    left join country on orders.sigla_pais = country.sigla_pais
     left join dates on orders.data_pedido = dates.full_date
 )
 
-select * from final
+select * from final*/

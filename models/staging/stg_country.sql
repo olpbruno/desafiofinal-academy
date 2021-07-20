@@ -1,19 +1,16 @@
 with source_data as (
     select 
-        countryregioncode as sigla_pais,
         name as pais,
-        modifieddate
+        countryregioncode as sigla_pais
     from {{ source('adventure_works','countryregion') }}
 ),
 
-deduplicated as (
-        select
-            *, ROW_NUMBER() over (
-                partition by id_endereco 
-                order by modifieddate DESC NULLS LAST) as index
-        from source_data
-    )
+
+source_with_sk as(
+    select *
+        , {{ dbt_utils.surrogate_key(['sigla_pais']) }} as sk_pais
+    from source_data
+)
 
 select * 
-from deduplicated
-where index = 1 
+from source_with_sk

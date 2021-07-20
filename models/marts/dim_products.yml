@@ -11,15 +11,3 @@ models:
               severity: error
           - unique:
               severity: error
-      
-      - name: 'sk_subcategoria'
-        description: "Chave primária, surrogate, da dimensão de produtos. Composta por: id_categoria."
-        tests:
-          - not_null:
-              severity: error
-      
-      - name: 'sk_categoria'
-        description: "Chave primária, surrogate, da dimensão de produtos. Composta por: id_categoria."
-        tests:
-          - not_null:
-              severity: error
