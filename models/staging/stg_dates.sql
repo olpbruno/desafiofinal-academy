@@ -1,6 +1,7 @@
 SELECT
   FORMAT_DATE('%F', d) as id,
-  d AS full_date,
+  d AS dates,
+  cast(d as timestamp) as full_date,
   EXTRACT(YEAR FROM d) AS year,
   EXTRACT(WEEK FROM d) AS year_week,
   EXTRACT(DAY FROM d) AS year_day,
@@ -15,4 +16,4 @@ FROM (
   SELECT
     *
   FROM
-    UNNEST(GENERATE_DATE_ARRAY('2008-01-01', '2030-01-01', INTERVAL 1 DAY)) AS d )
+    UNNEST(GENERATE_DATE_ARRAY('2008-01-01', '2022-01-01', INTERVAL 1 DAY)) AS d )

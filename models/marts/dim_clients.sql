@@ -48,7 +48,7 @@ stores as (
     select 
         customer.id_cliente	
         , customer.sk_cliente
-        , store.loja as nome
+        , person.nome  
         , 'SC' as tipo_pessoa /* SC = Store contact */
         , 'Not informed' as tipo_cartao
         , 'Não' as recebe_promo
@@ -58,6 +58,7 @@ stores as (
         , country.pais
     from customer
     left join store on customer.sk_loja = store.sk_loja
+    left join person on store.sk_vendedor = person.sk_pessoa
     left join businessentityaddress on store.sk_loja = businessentityaddress.sk_entidade
     left join address on businessentityaddress.sk_endereco = address.sk_endereco
     left join state on address.sk_estado = state.sk_estado
@@ -71,7 +72,7 @@ retail_customer as (
         , customer.sk_cliente
         , person.nome as nome
         , person.tipo_pessoa
-        , creditcard.tipo_cartao
+        , cast(coalesce(creditcard.tipo_cartao,'Not informed') as string)
         , person.recebe_promo
         , address.cidade
         , address.codigo_postal
@@ -85,6 +86,7 @@ retail_customer as (
     left join country on state.sk_pais = country.sk_pais
     left join personcreditcard on customer.sk_pessoa = personcreditcard.sk_pessoa
     left join creditcard on personcreditcard.sk_cartao = creditcard.sk_cartao
+    where customer.id_pessoa is not null
 ),
     /* União entre as tabelas stores e retail_customer */
 tabela_final as (

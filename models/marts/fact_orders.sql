@@ -1,6 +1,16 @@
-/*with orders as (
+with orders as (
     select *
-    from {{ ref('stg_orders')}}
+    from {{ ref('stg_orderheader')}}
+),
+
+seed as (
+    select *
+    from {{ ref('seed_status')}}
+),
+
+orderdetail as (
+    select * 
+    from {{ ref('stg_orderdetail')}}
 ),
 
 clients as (
@@ -25,20 +35,20 @@ products as (
 
 dates as (
     select 
-        date_sk
-        , cast(full_date as timestamp) as full_date
+        *
     from {{ ref('dim_dates')}}
 ),
 
 final as (
     select 
-        clients.client_sk
-        , products.sk_produto
-        , salesreason.salesreason_sk
-        , salesperson.vendedor_sk
-        , dates.date_sk
-        , orders.order_sk
+        orders.sk_cliente
+        , orderdetail.sk_produto
+        , orderdetail.sk_pedido_item
+        , salesperson.sk_vendedor
+        , dates.sk_data
+        , orders.sk_pedido
         , orders.id_pedido
+        , orderdetail.id_item
         , case
             when salesreason.motivo is null
                 then 'Not informed'
@@ -51,22 +61,25 @@ final as (
             end as tipo_motivo
         , orders.codigo_compra
         , orders.pedido_online
-        , orders.situacao_pedido
+        , seed.status_pedido
         , orders.data_envio
         , orders.data_entrega
-        , orders.quantidade
-        , orders.preco_unidade
-        , orders.desconto_unitario
-        , orders.subtotal
+        , orders.data_pedido
+        , orderdetail.quantidade
+        , orderdetail.preco_unidade
+        , orderdetail.desconto_unitario
+        , orderdetail.subtotal
         , orders.frete
         , orders.impostos
         , orders.valor_total
     from orders
-    left join clients on orders.id_pessoa = clients.id_pessoa
-    left join products on orders.id_produto = products.id_produto
-    left join salesperson on orders.id_vendedor = salesperson.id_pessoa
-    left join salesreason on orders.id_razaovenda = salesreason.id_razaovenda
+    left join orderdetail on orders.sk_pedido = orderdetail.sk_pedido
+    left join clients on orders.sk_cliente = clients.sk_cliente
+    left join products on orderdetail.sk_produto = products.sk_produto
+    left join salesperson on orders.sk_vendedor = salesperson.sk_vendedor
+    left join salesreason on orders.sk_pedido = salesreason.sk_pedido
     left join dates on orders.data_pedido = dates.full_date
+    left join seed on orders.status_pedido = seed.id_status
 )
 
-select * from final*/
+select * from final

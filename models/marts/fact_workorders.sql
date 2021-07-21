@@ -32,9 +32,7 @@ workorder as (
 ),
 
 dates as (
-    select 
-        date_sk
-        , cast(full_date as timestamp) as full_date
+    select *
     from {{ ref('dim_dates')}}
 ),
 
@@ -44,7 +42,7 @@ final as (
         , workrouting.workrouting_sk
         , locations.location_sk
         , products.sk_produto
-        , dates.date_sk
+        , dates.sk_data
         , workorder.orderqty as qnt_produzida
         , workorder.scrappedqty as qtd_sucateada
         , workorder.scraping as razao_sucateamento

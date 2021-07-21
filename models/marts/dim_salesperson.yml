@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: dim_salesperson
+    description: Tabela de dimensão de vendedores
+    columns:
+      - name: 'sk_vendedor'
+        description: "Chave primária, surrogate, da dimensão de produtos. Composta por: id_produto."
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error

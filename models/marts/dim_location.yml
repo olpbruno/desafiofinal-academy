@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: dim_location
+    description: Tabela de dimensão de localização
+    columns:
+      - name: 'location_sk'
+        description: "Chave primária. Composta por: locationid."
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error

@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: dim_dates
+    description: Tabela de dimensão de datas
+    columns:
+      - name: 'sk_data'
+        description: "Chave primária. Composta por: id."
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error

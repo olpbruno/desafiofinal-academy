@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: dim_salesreason
+    description: Tabela de dimensão de motivos de venda
+    columns:
+      - name: 'sk_pedido'
+        description: "Chave primária. Composta por: id_motivo."
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error
