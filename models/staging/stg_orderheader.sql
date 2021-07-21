@@ -1,6 +1,6 @@
 with source_data as (
     select 
-        salesorderid as id_pedido
+        cast(salesorderid as string) as id_pedido
         , revisionnumber as numero_revisao
         , orderdate as data_pedido
         , shipdate as data_envio

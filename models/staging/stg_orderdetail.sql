@@ -1,8 +1,8 @@
 with source_data as (
     select 
-        salesorderdetailid as id_item
-        , salesorderid as id_pedido
-        , productid as id_produto
+        cast(salesorderdetailid as string) as id_item
+        , cast(salesorderid as string) as id_pedido
+        , cast(productid as string) as id_produto
         , orderqty as quantidade
         , unitprice as preco_unidade
         , unitpricediscount as desconto_unitario
