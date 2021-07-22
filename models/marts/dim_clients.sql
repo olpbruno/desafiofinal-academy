@@ -52,10 +52,6 @@ stores as (
         , 'SC' as tipo_pessoa /* SC = Store contact */
         , 'Not informed' as tipo_cartao
         , 'Não' as recebe_promo
-        , address.cidade
-        , address.codigo_postal
-        , state.estado
-        , country.pais
     from customer
     left join store on customer.sk_loja = store.sk_loja
     left join person on store.sk_vendedor = person.sk_pessoa
@@ -74,10 +70,6 @@ retail_customer as (
         , person.tipo_pessoa
         , cast(coalesce(creditcard.tipo_cartao,'Not informed') as string)
         , person.recebe_promo
-        , address.cidade
-        , address.codigo_postal
-        , state.estado
-        , country.pais
     from customer
     left join person on customer.sk_pessoa = person.sk_pessoa
     left join businessentityaddress on person.sk_pessoa = businessentityaddress.sk_entidade

@@ -41,18 +41,13 @@ tabela_join as (
         , product.estoque_pedido /* estoque minimo que aciona um pedido de compra ou produção */
         , product.preco_padrao
         , product.valor_venda
-        , product.tamanho_produto
-        , product.medida_tamanho
-        , product.peso
-        , product.medida_peso
-        , product.tempo_producao
         , product.linha_produto
         , product.classe_produto
         , product.estilo
         , coalesce(productcategory.categoria,'Not Informed') as categoria
-        , productsubcategory.subcategoria
+        , coalesce(productsubcategory.subcategoria,'Not Informed') as subcategoria
         , productmodel.modelo
-        , productdescription.descricao
+        , coalesce(productdescription.descricao, 'Not Informed') as descricao
     from product
     left join productsubcategory on product.sk_subcategoria = productsubcategory.sk_subcategoria
     left join productcategory on productsubcategory.sk_categoria = productcategory.sk_categoria

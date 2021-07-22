@@ -2,16 +2,16 @@ version: 2
 
 models:
   - name: fact_orders
-    description: Tabela de fatos de chamados (SAC) do banco Oracle. Referente à tabela usu_tsac_ca no banco source.
+    description: Tabela de fatos de detalhamento de pedidos. 
     columns:
-      - name: 'sk_pedido_item'
-        description: "Chave primária, surrogate, da dimensão de produtos. Composta por: id_produto."
+      - name: 'sk_pedido'
+        description: "Chave primária. Composta por: id_pedido."
         tests:
           - not_null
           - unique
               
       - name: 'sk_cliente'
-        description: "Chave primária, surrogate, da dimensão de produtos. Composta por: id_produto."
+        description: "Chave estrangeira. Composta por: id_cliente."
         tests:
           - not_null
           - relationships:
@@ -19,15 +19,43 @@ models:
               field: sk_cliente
               severity: warn
               
-      - name: 'sk_produto'
-        description: "Chave primária, surrogate, da dimensão de produtos. Composta por: id_produto."
+      - name: 'sk_vendedor'
+        description: "Chave estrangeira. Composta por: id_vendedor."
         tests:
-          - not_null
+          - not_null:
+              severity: warn
           - relationships:
-              to: ref('dim_products')
-              field: sk_produto
+              to: ref('dim_salesperson')
+              field: sk_vendedor
+              severity: warn
               
-      - name: 'sk_pedido'
-        description: "Chave primária, surrogate, da dimensão de produtos. Composta por: id_produto."
+      - name: 'sk_endereco'
+        description: "Chave estrangeira. Composta por: id_endereco."
         tests:
-          - not_null
+          - not_null:
+              severity: warn
+          - relationships:
+              to: ref('dim_city')
+              field: sk_endereco
+              severity: warn
+              
+      - name: 'sk_estado'
+        description: "Chave estrangeira. Composta por: id_estado."
+        tests:
+          - not_null:
+              severity: warn
+          - relationships:
+              to: ref('dim_state')
+              field: sk_estado
+              severity: warn
+              
+      - name: 'sk_pais'
+        description: "Chave estrangeira. Composta por: id_pais."
+        tests:
+          - not_null:
+              severity: warn
+          - relationships:
+              to: ref('dim_country')
+              field: sk_pais
+              severity: warn
+            

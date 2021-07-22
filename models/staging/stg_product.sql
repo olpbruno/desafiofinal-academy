@@ -13,7 +13,7 @@ with source_data as (
                 then 'Sim'
                 else 'Não'
             end as venda_disponivel
-        , color as cor
+        , coalesce(color, 'Not Informed') as cor
         , safetystocklevel as estoque_minimo
         , reorderpoint as estoque_pedido /* estoque minimo que aciona um pedido de compra ou produção */
         , standardcost as preco_padrao

@@ -1,55 +1,21 @@
-with address as (
+with salesperson as (
     select * 
-    from {{ ref('stg_address')}}
-),
-
-businessentityaddress as (
-    select * 
-    from {{ ref('stg_businessentityaddress')}}
-),
-
-country as (
-    select * 
-    from {{ ref('stg_country')}}
-),
-
-state as (
-    select * 
-    from {{ ref('stg_state')}}
+    from {{ ref('stg_salesperson')}}
 ),
 
 person as (
-    select *
+    select * 
     from {{ ref('stg_person')}}
-
 ),
 
-personcreditcard as (
-    select * 
-    from {{ ref('stg_personcreditcard')}}
-),
-
-creditcard as (
-    select * 
-    from {{ ref('stg_creditcard')}}
-),
-
-tabela_final as (
-    select
-        person.sk_pessoa as sk_vendedor
-        , person.nome as nome
+ final as (
+    select 
+        salesperson.*
+        , person.nome 
+        , person.tipo_pessoa
         , person.recebe_promo
-        , address.cidade
-        , address.codigo_postal
-        , state.estado
-        , country.pais
-    from person
-    left join businessentityaddress on person.sk_pessoa = businessentityaddress.sk_entidade
-    left join address on businessentityaddress.sk_endereco = address.sk_endereco
-    left join state on address.sk_estado = state.sk_estado
-    left join country on state.sk_pais = country.sk_pais
-    where person.tipo_pessoa = 'SP'
-)
+    from salesperson
+    left join person on salesperson.id_vendedor = person.id_pessoa
+ )
 
-select *
-from tabela_final
+select * from final

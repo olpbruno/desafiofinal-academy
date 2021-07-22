@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: dim_city
+    description: Tabela de dimensão de produtos.
+    columns:
+      - name: 'sk_endereco'
+        description: "Chave primária. Composta por: id_produto."
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error

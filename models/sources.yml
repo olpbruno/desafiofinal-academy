@@ -40,3 +40,4 @@ sources:
       - name: salesorderheadersalesreason
       - name: location
       - name: scrapreason
+      - name: salesperson

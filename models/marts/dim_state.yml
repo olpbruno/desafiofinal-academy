@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: dim_state
+    description: Tabela de dimensão de produtos.
+    columns:
+      - name: 'sk_estado'
+        description: "Chave primária. Composta por: id_produto."
+        tests:
+          - not_null:
+              severity: error
+          - unique:
+              severity: error

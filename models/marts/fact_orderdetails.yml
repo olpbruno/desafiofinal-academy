@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: fact_orderdetails
+    description: Tabela de fatos de detalhamento de pedidos. 
+    columns:
+      - name: 'sk_pedido_item'
+        description: "Chave primária. Composta por: id_produto."
+        tests:
+          - not_null
+          - unique
+              
+      - name: 'sk_cliente'
+        description: "Chave estrangeira. Composta por: id_produto."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_clients')
+              field: sk_cliente
+              severity: warn
+              
+      - name: 'sk_produto'
+        description: "Chave estrangeira. Composta por: id_produto."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_products')
+              field: sk_produto
+              
+      - name: 'sk_pedido'
+        description: "Chave estrangeira. Composta por: id_produto."
+        tests:
+          - not_null
+              
+      - name: 'sk_vendedor'
+        description: "Chave estrangeira. Composta por: id_vendedor."
+        tests:
+          - not_null:
+              severity: warn
+          - relationships:
+              to: ref('dim_salesperson')
+              field: sk_vendedor
+              severity: warn
